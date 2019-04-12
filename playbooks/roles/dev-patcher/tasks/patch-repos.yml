@@ -26,3 +26,4 @@
   when:
     # Do not apply patches if they are already merged
     - "jsoncontent | length > 0"
+    - "jsoncontent[0]['mergeable'] | bool"
