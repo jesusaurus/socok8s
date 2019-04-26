@@ -15,7 +15,7 @@
       shell: "./velum-interactions --update-admin -e {{ upstream_repos_clone_folder }}/ccp/environment.json"
       args:
         executable: /bin/bash
-        chdir: "{{ upstream_repos_clone_folder }}/ccp/velum-bootstrap"
+        chdir: "{{ upstream_repos_clone_folder }}/ccp/automation/velum-bootstrap"
       tags:
         - skip_ansible_lint
 
@@ -23,6 +23,6 @@
       shell: "./velum-interactions --update-minions -e {{ upstream_repos_clone_folder }}/ccp/environment.json"
       args:
         executable: /bin/bash
-        chdir: "{{ upstream_repos_clone_folder }}/ccp/velum-bootstrap"
+        chdir: "{{ upstream_repos_clone_folder }}/ccp/automation/velum-bootstrap"
       tags:
         - skip_ansible_lint

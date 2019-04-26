@@ -1,3 +1,6 @@
+[submodule "submodules/caasp-automation"]
+	path = submodules/caasp-automation
+	url = git@github.com:SUSE/caasp-automation.git
 [submodule "submodules/ansible-config_template"]
 	path = submodules/ansible-config_template
 	url = https://github.com/openstack/ansible-config_template.git

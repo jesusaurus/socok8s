@@ -40,10 +40,10 @@
           - libxml2-devel
           - libxslt-devel
 
-    - name: Copying velum automation
-      unarchive:
-        src: "{{ playbook_dir }}/../files/velum-bootstrap.tar.xz"
-        dest: "{{ upstream_repos_clone_folder }}/ccp/"
+    - name: Copying caasp-automation submodule for velum automation
+      copy:
+        src: "{{ playbook_dir }}/../submodules/caasp-automation/"
+        dest: "{{ upstream_repos_clone_folder }}/ccp/automation/"
 
 
     # Ansible velum needs to get given a specific shell, bash, therefore
@@ -58,6 +58,6 @@
         - "--bootstrap --enable-tiller"
       args:
         executable: /bin/bash
-        chdir: "{{ upstream_repos_clone_folder }}/ccp/velum-bootstrap"
+        chdir: "{{ upstream_repos_clone_folder }}/ccp/automation/velum-bootstrap"
       tags:
         - skip_ansible_lint
