@@ -36,14 +36,20 @@
           command: openstack server list --name {{ stackname }}-worker -c ID -c Name -c Networks -f json --noindent
           register: _workermachines
           changed_when: false
+          failed_when: _workermachines.stdout == '[]'
+
         - name: Get admin details
           command: openstack server list --name {{ stackname }}-admin -c ID -c Name -c Networks -f json --noindent
           register: _adminmachines
           changed_when: false
+          failed_when: _adminmachines.stdout == '[]'
+
         - name: Get master details
           command: openstack server list --name {{ stackname }}-master -c ID -c Name -c Networks -f json --noindent
           register: _mastermachines
           changed_when: false
+          failed_when: _mastermachines.stdout == '[]'
+
         - name: Set the list of IDs per type of machine.
           set_fact:
             workers: "{{ _workermachines.stdout | from_json }}"
