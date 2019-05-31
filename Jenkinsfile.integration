@@ -2,8 +2,8 @@ pipeline {
 
     options {
         timestamps()
-        timeout(time: 45, unit: 'MINUTES', activity: true)
         parallelsAlwaysFailFast()
+        disableConcurrentBuilds()
     }
 
     agent {
@@ -37,11 +37,17 @@ pipeline {
         }
 
         stage('Create network') {
+            options {
+                timeout(time: 10, unit: 'MINUTES', activity: true)
+            }
             steps {
                 sh "./run.sh deploy_network"
             }
         }
         stage('Create VMs') {
+            options {
+                timeout(time: 20, unit: 'MINUTES', activity: true)
+            }
             parallel {
                 stage('Deploy CaaSP') {
                     steps {
@@ -62,6 +68,9 @@ pipeline {
         }
 
         stage('Configure CaaSP workers') {
+            options {
+                timeout(time: 15, unit: 'MINUTES', activity: true)
+            }
             steps {
                 sh "./run.sh enroll_caasp_workers"
                 sh "./run.sh setup_caasp_workers_for_openstack"
@@ -69,6 +78,9 @@ pipeline {
         }
 
         stage('Deploy') {
+            options {
+                timeout(time: 30, unit: 'MINUTES', activity: true)
+            }
             parallel {
 		stage('Deploy OpenStack Helm') {
 		    when {
