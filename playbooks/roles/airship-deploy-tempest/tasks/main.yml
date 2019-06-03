@@ -51,8 +51,14 @@
   tags:
     - skip_ansible_lint
 
+- name: Copy setup subnet pool script
+  copy:
+    src: "{{ role_path }}/files/tempest_setup_subnet.sh"
+    dest: /tmp/tempest_setup_subnet.sh
+    mode: 0755
+
 - name: Setup subnet pool
-  shell: "{{ role_path }}/files/tempest_setup_subnet.sh"
+  shell: /tmp/tempest_setup_subnet.sh
   args:
     chdir: "{{ upstream_repos_clone_folder }}/openstack/openstack-helm"
   when: subnet_pool_result.stderr is search('not found')
@@ -67,8 +73,14 @@
   tags:
     - skip_ansible_lint
 
+- name: Copy get Cirros image ID script
+  copy:
+    src: "{{ role_path }}/files/tempest_get_image_id.sh"
+    dest: /tmp/tempest_get_image_id.sh
+    mode: 0755
+
 - name: Get Cirros image ID
-  shell: "{{ role_path }}/files/tempest_get_image_id.sh"
+  shell: /tmp/tempest_get_image_id.sh
   register: tempest_test_image_id
   tags:
     - skip_ansible_lint
